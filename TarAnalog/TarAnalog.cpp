@@ -1,4 +1,4 @@
-// TarAnalog.cpp : Defines the entry point for the console application.
+п»ї// TarAnalog.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -12,15 +12,15 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	char byte[1];  // буфер для считывания одного байта
+	char byte[1];  // Р±СѓС„РµСЂ РґР»СЏ СЃС‡РёС‚С‹РІР°РЅРёСЏ РѕРґРЅРѕРіРѕ Р±Р°Р№С‚Р°
 
-	FILE *archFile; // файл - архив
-	FILE *file;   // файл для архивирования
+	FILE *archFile; // С„Р°Р№Р» - Р°СЂС…РёРІ
+	FILE *file;   // С„Р°Р№Р» РґР»СЏ Р°СЂС…РёРІРёСЂРѕРІР°РЅРёСЏ
 	errno_t err1, err2;
 
 	err1 = fopen_s(&archFile, "archFile.bin", "wb");
 	err2 = fopen_s(&file, "curFile.bin","rb");
-	// переписываем информацию в архив
+	// РїРµСЂРµРїРёСЃС‹РІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ РІ Р°СЂС…РёРІ
 	if (err1 == 0 && err2 == 0)
 	{
 		while (!feof(file))
