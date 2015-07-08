@@ -37,34 +37,35 @@ void TarAnalog::WriteInArch(const std::string& filename) // функция за�
 	// IZ: никогда не оставляй переменные непроинициализированными, особенно указатели
 	// и не пиши int *x - это не труъ, int* x круче, потому что если тебе надо найти в коде потом все указатели на int,
 	// это получится сделать проще, а то у некоторых есть такие штуки: int          *x
-	FILE* archFile = nullptr; // файл - архив
 	FILE* file = nullptr;   // файл для архивирования
-	errno_t err1, err2;
+	errno_t errorCode = fopen_s(&file, filename.c_str(), "rb");
 
-	err1 = fopen_s(&archFile, mArchFilename.c_str(), "a+");
-	err2 = fopen_s(&file, filename.c_str(), "rb");
 	// переписываем информацию в архив
-	if (err1 == 0 && err2 == 0)
+	if (errorCode == 0)
 	{
 		while (!feof(file))
 		{
 			// IZ: переделано на считывание сразу кучи байтов
 			size_t bytesRead = fread(readBuffer, 1, kBufferSize, file);
-			fwrite(readBuffer, 1, bytesRead, archFile);
+			fwrite(readBuffer, 1, bytesRead, mArchFile);
 		}
 	}
 
 	fclose(file);
-	fclose(archFile);
 }
 
 // IZ: пустая строка не помешает
 void TarAnalog::WriteAllInArch()// функция записи списка файлов в архив
 {
-	remove(mArchFilename.c_str()); // удаляем всё что было раньше	
+	errno_t errorCode = fopen_s(&mArchFile, mArchFilename.c_str(), "wb+"); // IZ: файл архива не надо открывать каждый раз, когда ты в него пишешь, это бьет по перфомансу
+	if (errorCode != 0)
+	{
+		return;
+	}
+
 	for (const std::string& filename : mFiles) // IZ: range based for твой друг
 	{
 		WriteInArch(filename);
 	}
-
+	fclose(mArchFile);
 }
