@@ -1,15 +1,12 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-//
-
 #pragma once
-
-#include "targetver.h"
 
 #include <stdio.h>
 #include <tchar.h>
 
-
-
-// TODO: reference additional headers your program requires here
+// IZ: все эти хедеры надо запихивать в stdafx.h, иначе смысл precompiled headers теряется
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <algorithm>
+#include <vector>
+#include <string>
