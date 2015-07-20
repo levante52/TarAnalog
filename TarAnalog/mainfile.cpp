@@ -6,15 +6,42 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	bool flagPack = false;
+	bool flagUnpack = false;
+	bool flagFiles = false;
 	TarAnalog Arch;
-	/*std::vector<const char*> files;
-	files.push_back("file1.bin");
-	files.push_back("file2.bin");*/
-	Arch.AddFile("file1.bin");
-	Arch.AddFile("file2.bin");
-	Arch.DeleteFile("file1.bin");
+	//Arch.AddFile("file1.bin");
+	//Arch.AddFile("file2.bin");
+	//Arch.WriteAllInArch();
+	if (argc <= 1)
+	{
+		std::cout << "Input arguments";
+	}
 
-	Arch.WriteAllInArch();
-	//Arch.writeInArch("Started.pdf");
+	else
+	{
+		if (!_tcscmp(argv[2], _T("-pack")))
+		{
+			flagPack = true;
+			std::cout << "Files packed" << std::endl;
+		}
+		if (!_tcscmp(argv[2], _T("-unpack")))
+		{
+			flagUnpack = true;
+			std::cout << "Files unpacked" << std::endl;
+		}
+		/*if (!_tcscmp(argv[3], _T("-files")))
+		{
+			flagFiles = true;
+			std::cout << "Choosed -files" << std::endl;
+		}
+		for (int i = 4; i < argc; i++)
+		{
+			if (flagFiles)
+			{
+				Arch.AddFile(argv[i]);
+			}
+		}*/
+	}
 	return 0;
 }

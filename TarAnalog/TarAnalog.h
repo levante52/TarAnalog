@@ -8,9 +8,9 @@ public:
 	// IZ: деструктор тебе здесь не нужен, потому что в конструкторе ты ничего не выделяешь и не должна никакие ресурсы за собой подчищать
 	// почитай про Rule of three https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)
 
+	void Pack(const std::string& filename);
+	void Unpack(const std::string& filename);
 	void AddFile(const std::string& filename);
-	void DeleteFile(const std::string& filename);
-	void WriteAllInArch();
 
 /*
 IZ: приватные методы и поля всегда спускай вниз, когда человек смотрит класс, он обычно смотрит
@@ -26,6 +26,8 @@ IZ: приватные методы и поля всегда спускай вниз, когда человек смотрит класс, он
 
 private:
 	void WriteInArch(const std::string& filename);
+	void DeleteFile(const std::string& filename);
+	void WriteAllInArch(const std::string& filename);
 
 	std::string					mArchFilename; // IZ: используй STL, че ты. Все эти const char* - источник кучи багов и ошибок, C++, это вам не C
 	std::vector<std::string>	mFiles;
