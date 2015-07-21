@@ -31,7 +31,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (!_tcscmp(argv[2], _T("-files")))
 		{
 			flagFiles = true;
-			std::cout << "Choosed -files" << std::endl;
 		}
 		for (int i = 3; i < argc; i++)
 		{
@@ -41,6 +40,13 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 		}
 	}
-	Arch.Pack();
+	if (flagPack)
+	{
+		Arch.Pack();
+	}
+	if(flagUnpack)
+	{
+		Arch.Unpack();
+	}
 	return 0;
 }
