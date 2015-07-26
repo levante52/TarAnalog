@@ -27,7 +27,7 @@ void TarAnalog::DeleteFile(const std::string& filename)
 void TarAnalog::WriteInArch(const std::string& filename) // функция записи одного файла в архив
 {
 	const size_t kBufferSize = 4096;
-	char readBuffer[kBufferSize];  // буфер для считывания одного байта 
+	char readBuffer[kBufferSize];  
 				   // IZ: считывать по одному байту очень долго, буфер должен быть хотя бы на 4 килобайта,
 				   // это ускорит в разы
 
@@ -48,7 +48,9 @@ void TarAnalog::WriteInArch(const std::string& filename) // функция за�
 		}
 	}
 	if (file != NULL)
-	{
+	{	
+		fseek(file, 0, SEEK_END);
+		mSizeOfFiles.push_back(ftell(file));
 		fclose(file);
 		file = nullptr;
 	}
@@ -77,5 +79,34 @@ void TarAnalog::Pack()
 }
 void TarAnalog::Unpack()
 {
+	FILE* file = nullptr;
+	const size_t kBufferSize = 4096;
+	char readBuffer[kBufferSize];
+	size_t sizeOfFile;
+	size_t bytesRead;
 
+
+	errno_t errorCode = fopen_s(&mArchFile, mArchFilename.c_str(), "rb+"); 
+	if (errorCode != 0)
+	{
+		return;
+	}
+	int i = 0;
+	for (const std::string& filename : mFiles) 
+	{
+		errno_t errorCode = fopen_s(&file, filename.c_str(), "wb+");
+		if (errorCode != 0)
+		{
+			return;
+		}
+		
+		bytesRead = 0;
+		bytesRead = fread(readBuffer, 1, mSizeOfFiles[i], mArchFile);
+		fwrite(readBuffer, 1, bytesRead, file);
+		
+		fclose(file);
+		i++;
+	}
+	fclose(mArchFile);
+	
 }

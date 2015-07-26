@@ -29,7 +29,9 @@ private:
 	void DeleteFile(const std::string& filename);
 	void WriteAllInArch();
 
+
 	std::string					mArchFilename; // IZ: используй STL, че ты. ¬се эти const char* - источник кучи багов и ошибок, C++, это вам не C
 	std::vector<std::string>	mFiles;
+	std::vector<std::size_t>	mSizeOfFiles;
 	FILE* mArchFile = nullptr;	// файл - архив IZ: да, в C++11 можно делать и так, € так везде использую и тебе рекомендую, но это только C++11 и выше
 };
