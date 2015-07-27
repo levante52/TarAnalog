@@ -10,3 +10,5 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <array>
+#include <stdint.h>
