@@ -11,7 +11,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool flagFiles = false;
 	TarAnalog Arch;
 
-	if (argc <= 1)
+	if (argc == 1)
 	{
 		std::cout << "Input arguments";
 	}
@@ -28,9 +28,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			flagUnpack = true;
 			std::cout << "Files unpacked" << std::endl;
 		}
-		if (!_tcscmp(argv[2], _T("-files")))
+		if (argc > 2)
 		{
-			flagFiles = true;
+			if (!_tcscmp(argv[2], _T("-files")))
+			{
+				flagFiles = true;
+			}
 		}
 		for (int i = 3; i < argc; i++)
 		{
@@ -48,9 +51,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Arch.Unpack();
 	}
-	Arch.AddFile("file1.bin");
+	/*Arch.AddFile("file1.bin");
 	Arch.AddFile("file2.bin");
 	Arch.Pack();
-	Arch.Unpack();
+	Arch.Unpack();*/
 	return 0;
 }

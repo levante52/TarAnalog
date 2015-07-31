@@ -57,8 +57,8 @@ void TarAnalog::WriteInArch(const std::string& filename) // функция за�
 	
 }
 
-// IZ: пустая строка не помешает
-void TarAnalog::WriteAllInArch()// функция записи списка файлов в архив
+
+void TarAnalog::Pack()
 {
 	errno_t errorCode = fopen_s(&mArchFile, mArchFilename.c_str(), "wb+"); // IZ: файл архива не надо открывать каждый раз, когда ты в него пишешь, это бьет по перфомансу
 	if (errorCode != 0)
@@ -71,11 +71,6 @@ void TarAnalog::WriteAllInArch()// функция записи списка фа
 		WriteInArch(filename);
 	}
 	fclose(mArchFile);
-}
-
-void TarAnalog::Pack()
-{
-	WriteAllInArch();
 }
 void TarAnalog::Unpack()
 {
@@ -99,10 +94,10 @@ void TarAnalog::Unpack()
 		{
 			return;
 		}
-		
 		bytesRead = 0;
 		bytesRead = fread(readBuffer, 1, mSizeOfFiles[i], mArchFile);
 		fwrite(readBuffer, 1, bytesRead, file);
+		std::cout << bytesRead << std::endl;
 		
 		fclose(file);
 		i++;
