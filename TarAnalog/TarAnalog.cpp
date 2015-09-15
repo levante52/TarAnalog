@@ -6,6 +6,7 @@
 TarAnalog::TarAnalog()
 {
 	mArchFilename = "archFile.bin";
+	mInfoFile = "info.txt";
 }
 
 TarAnalog::TarAnalog(const std::string& name) :
@@ -56,7 +57,19 @@ void TarAnalog::WriteInArch(const std::string& filename) // функция за�
 	}
 	
 }
+void TarAnalog::WriteInfo() // пишем информацию по заархивированным файлам
+{
+	std::ofstream f;
+	f.open(mInfoFile.c_str(), std::ios::out);
+	for (int i = 0; i < mFiles.size(); i++)
+	{
+		f << mFiles[i] << "\t" << mSizeOfFiles[i] << std::endl;
+	}
 
+	//закрытие потока
+	f.close();
+
+}
 
 void TarAnalog::Pack()
 {
@@ -71,6 +84,7 @@ void TarAnalog::Pack()
 		WriteInArch(filename);
 	}
 	fclose(mArchFile);
+	WriteInfo();
 }
 void TarAnalog::Unpack()
 {
