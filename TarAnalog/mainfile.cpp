@@ -51,9 +51,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		Arch.Unpack();
 	}
-	/*Arch.AddFile("file1.bin");
-	Arch.AddFile("file2.bin");
+	//Arch.AddFile("file1.bin");
+	//Arch.AddFile("file2.bin");
 	Arch.Pack();
-	Arch.Unpack();*/
+	//Arch.Unpack();
 	return 0;
 }

@@ -28,6 +28,7 @@ private:
 	void WriteInArch(const std::string& filename);
 	void DeleteFile(const std::string& filename);
 	void WriteInfo();
+	void ReadInfo();
 
 	std::string					mArchFilename; // IZ: используй STL, че ты. Все эти const char* - источник кучи багов и ошибок, C++, это вам не C
 	std::string					mInfoFile;

@@ -60,10 +60,33 @@ void TarAnalog::WriteInArch(const std::string& filename) // функция за�
 void TarAnalog::WriteInfo() // пишем информацию по заархивированным файлам
 {
 	std::ofstream f;
-	f.open(mInfoFile.c_str(), std::ios::out);
+	f.open(mInfoFile.c_str(), std::ios::in);
 	for (int i = 0; i < mFiles.size(); i++)
 	{
-		f << mFiles[i] << "\t" << mSizeOfFiles[i] << std::endl;
+		f << mFiles[i];
+		f << std::endl;
+		f << mSizeOfFiles[i];
+		f << std::endl;
+	}
+
+	//закрытие потока
+	f.close();
+
+}
+void TarAnalog::ReadInfo() // пишем информацию по заархивированным файлам
+{
+	std::ifstream f;
+	f.open(mInfoFile.c_str(), std::ios::out);
+	std::string s;
+	int i = 0;
+	while (std::getline(f, s))
+	{
+		//std::cout << s << std::endl;
+		//int x = std::stoi(s);
+		mFiles[i] = s;
+		std::getline(f, s);
+		mSizeOfFiles[i] = std::stoi(s);
+		i++;
 	}
 
 	//закрытие потока
@@ -85,6 +108,7 @@ void TarAnalog::Pack()
 	}
 	fclose(mArchFile);
 	WriteInfo();
+	ReadInfo();// дважды запись
 }
 void TarAnalog::Unpack()
 {
